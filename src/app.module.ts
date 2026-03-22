@@ -2,8 +2,8 @@ import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AdviceModule } from './advice/advice.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
 import { Advice } from 'schemas/advice.schema';
+import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({
   imports: [

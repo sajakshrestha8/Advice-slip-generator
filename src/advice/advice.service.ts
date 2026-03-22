@@ -1,14 +1,24 @@
-import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 import { CreateAdviceDto } from './dto/create-advice.dto';
 import { UpdateAdviceDto } from './dto/update-advice.dto';
+import { Advice } from 'schemas/advice.schema';
+import { Repository } from 'typeorm';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 
 @Injectable()
 export class AdviceService {
-  create(createAdviceDto: CreateAdviceDto) {
-    const { advice, category, feeling } = createAdviceDto;
-    console.log({ advice, category, feeling });
+  constructor(
+    @InjectRepository(Advice)
+    private readonly adviceRepo: Repository<Advice>,
+  ) {}
 
-    return { advice, category, feeling };
+  async create(createAdviceDto: CreateAdviceDto) {
+    try {
+      const advice = this.adviceRepo.create(createAdviceDto);
+      return await this.adviceRepo.save(advice);
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to add advice', error);
+    }
   }
 
   findAll() {
