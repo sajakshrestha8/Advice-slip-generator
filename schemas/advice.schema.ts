@@ -1,8 +1,11 @@
-import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { HydratedDocument } from 'mongoose';
-import { v4 as uuidv4 } from 'uuid';
-
-export type AdviceDocument = HydratedDocument<Advice>;
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  DeleteDateColumn,
+} from 'typeorm';
 
 export enum AdviceCategory {
   CAREER = 'career',
@@ -22,25 +25,26 @@ export enum AdviceFeeling {
   STUCK = 'stuck',
 }
 
-@Schema({ timestamps: true })
+@Entity()
 export class Advice {
-  @Prop({ type: String, default: () => uuidv4(), unique: true })
+  @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @Prop({ type: String, required: true })
+  @Column({ type: 'text' })
   advice: string;
 
-  @Prop({ type: String, enum: AdviceCategory, required: true })
+  @Column({ type: 'text', enum: AdviceCategory })
   category: AdviceCategory;
 
-  @Prop({ type: String, enum: AdviceFeeling, required: true })
+  @Column({ type: 'text', enum: AdviceFeeling })
   feeling: AdviceFeeling;
 
-  @Prop({ type: Date, default: null })
-  deletedAt: Date | null;
-
+  @CreateDateColumn()
   createdAt: Date;
-  updatedAt: Date;
-}
 
-export const AdviceSchema = SchemaFactory.createForClass(Advice);
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date | null;
+}
