@@ -21,8 +21,15 @@ export class AdviceService {
     }
   }
 
-  findAll() {
-    return `This action returns all advice`;
+  async findRandom() {
+    try {
+      const advices = await this.adviceRepo.find();
+
+      const randomAdvice = Math.floor(Math.random() * advices.length);
+      return advices[randomAdvice];
+    } catch (error) {
+      throw new InternalServerErrorException('Failed to add advice', error);
+    }
   }
 
   findOne(id: number) {

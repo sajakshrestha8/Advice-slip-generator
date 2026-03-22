@@ -21,8 +21,8 @@ export class AdviceController {
   }
 
   @Get()
-  findAll() {
-    return this.adviceService.findAll();
+  findRandom() {
+    return this.adviceService.findRandom();
   }
 
   @Get(':id')
