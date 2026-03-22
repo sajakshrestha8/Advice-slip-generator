@@ -5,7 +5,10 @@ import { UpdateAdviceDto } from './dto/update-advice.dto';
 @Injectable()
 export class AdviceService {
   create(createAdviceDto: CreateAdviceDto) {
-    return 'This action adds a new advice';
+    const { advice, category, feeling } = createAdviceDto;
+    console.log({ advice, category, feeling });
+
+    return { advice, category, feeling };
   }
 
   findAll() {
