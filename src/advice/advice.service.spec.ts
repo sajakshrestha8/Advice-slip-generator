@@ -1,12 +1,29 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AdviceService } from './advice.service';
+import { getRepositoryToken } from '@nestjs/typeorm';
+import { Advice } from './entities/advice.entity';
 
 describe('AdviceService', () => {
   let service: AdviceService;
 
+  const mockRepository = {
+    create: jest.fn(),
+    save: jest.fn(),
+    find: jest.fn(),
+    findOne: jest.fn(),
+    update: jest.fn(),
+    delete: jest.fn(),
+  };
+
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [AdviceService],
+      providers: [
+        AdviceService,
+        {
+          provide: getRepositoryToken(Advice), // 👈 mock the repository
+          useValue: mockRepository,
+        },
+      ],
     }).compile();
 
     service = module.get<AdviceService>(AdviceService);
