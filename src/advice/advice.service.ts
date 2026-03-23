@@ -1,6 +1,5 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateAdviceDto } from './dto/create-advice.dto';
-import { UpdateAdviceDto } from './dto/update-advice.dto';
 import { Advice } from 'schemas/advice.schema';
 import { Repository } from 'typeorm';
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
@@ -30,17 +29,5 @@ export class AdviceService {
     } catch (error) {
       throw new InternalServerErrorException('Failed to add advice', error);
     }
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} advice`;
-  }
-
-  update(id: number, updateAdviceDto: UpdateAdviceDto) {
-    return `This action updates a #${id} advice`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} advice`;
   }
 }

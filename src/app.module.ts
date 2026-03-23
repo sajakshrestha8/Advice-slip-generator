@@ -4,6 +4,8 @@ import { AppService } from './app.service';
 import { AdviceModule } from './advice/advice.module';
 import { Advice } from 'schemas/advice.schema';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
+import { APP_GUARD } from '@nestjs/core';
 
 @Module({
   imports: [
@@ -15,8 +17,22 @@ import { TypeOrmModule } from '@nestjs/typeorm';
       synchronize: false,
     }),
     AdviceModule,
+    ThrottlerModule.forRoot({
+      throttlers: [
+        {
+          ttl: 60000,
+          limit: 10,
+        },
+      ],
+    }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [
+    AppService,
+    {
+      provide: APP_GUARD,
+      useClass: ThrottlerGuard,
+    },
+  ],
 })
 export class AppModule {}
