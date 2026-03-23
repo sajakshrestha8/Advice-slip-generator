@@ -18,6 +18,11 @@ import { APP_GUARD } from '@nestjs/core';
     }),
     AdviceModule,
     ThrottlerModule.forRoot({
+      /*
+        Currently, the rate limit is for 60min i.e, 1 hour.
+        ttl - time to leave takes time in milisecond.
+        For the development purpose the limit is 10 request per hour, will update during the production environment.
+      */
       throttlers: [
         {
           ttl: 60000,
