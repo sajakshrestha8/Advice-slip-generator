@@ -23,10 +23,8 @@ fi
 
 FOUND=0
 
-FOUND=0
-
 for file in $STAGED_FILES; do
-  if git diff --cached -- "$file" | grep "^\+" | grep -v "^\+\+" | grep -q "console\.log"; then
+  if git diff --cached -- "$file" | grep "^\+" | grep -v "^\+\+" | grep -q "console.log"; then
     echo "Found console.log in: $file"
     FOUND=1
   fi

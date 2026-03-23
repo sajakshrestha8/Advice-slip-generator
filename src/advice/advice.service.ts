@@ -14,6 +14,7 @@ export class AdviceService {
   async create(createAdviceDto: CreateAdviceDto): Promise<Advice> {
     try {
       console.log('testing');
+      console.log('Again');
       const advice = this.adviceRepo.create(createAdviceDto);
       return await this.adviceRepo.save(advice);
     } catch (error) {
