@@ -13,6 +13,7 @@ export class AdviceService {
 
   async create(createAdviceDto: CreateAdviceDto): Promise<Advice> {
     try {
+      console.log('testing');
       const advice = this.adviceRepo.create(createAdviceDto);
       return await this.adviceRepo.save(advice);
     } catch (error) {
