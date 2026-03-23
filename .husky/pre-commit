@@ -21,6 +21,8 @@ if [ -z "$STAGED_FILES" ]; then
   exit 0
 fi
 
+# Pre-commit has issue, Here the console.log() check is not working as expected
+
 FOUND=0
 
 for file in $STAGED_FILES; do
