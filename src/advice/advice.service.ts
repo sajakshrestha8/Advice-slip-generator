@@ -13,9 +13,8 @@ export class AdviceService {
 
   async create(createAdviceDto: CreateAdviceDto): Promise<Advice> {
     try {
-      console.log(createAdviceDto, 'This is test console');
-      console.log('ytestasd');
       const advice = this.adviceRepo.create(createAdviceDto);
+      console.log('ghahaha');
       return await this.adviceRepo.save(advice);
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
