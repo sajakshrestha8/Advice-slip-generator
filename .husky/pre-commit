@@ -28,11 +28,19 @@ fi
 FOUND=0
 
 for file in $STAGED_FILES; do
-  if git diff --cached "$file" | grep -r "console.log"; then
+  if git diff --cached "$file" | grep "^\+" | grep -v "^\+\+" | grep -q "console\.log"; then
     echo "Found console.log in: $file"
     FOUND=1
   fi
 done
+
+echo "Found console.log" $FOUND
+
+if [ $FOUND -ne 0 ]; then
+  echo "Please remove console.log statements before committing."
+  echo "   Use Logger from @nestjs/common instead."
+  exit 1
+fi
 
 echo "No console.log statements found"
 exit 0
