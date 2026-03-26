@@ -7,6 +7,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { ThrottlerGuard, ThrottlerModule } from '@nestjs/throttler';
 import { APP_GUARD } from '@nestjs/core';
 import { User } from 'schemas/user.schema';
+import { AuthModule } from './auth/auth.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -33,6 +35,8 @@ import { User } from 'schemas/user.schema';
         },
       ],
     }),
+    AuthModule,
+    UsersModule,
   ],
   controllers: [AppController],
   providers: [
