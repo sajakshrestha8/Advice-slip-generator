@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /*
   seed File have issue currently
   This file can be used only after fixing the issue.
