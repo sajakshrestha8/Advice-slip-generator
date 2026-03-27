@@ -1,6 +1,7 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
 import { AdviceService } from './advice.service';
 import { CreateAdviceDto } from './dto/create-advice.dto';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('advice')
 export class AdviceController {
@@ -11,6 +12,7 @@ export class AdviceController {
     return this.adviceService.create(createAdviceDto);
   }
 
+  @UseGuards(AuthGuard)
   @Get()
   findRandom() {
     return this.adviceService.findRandom();
