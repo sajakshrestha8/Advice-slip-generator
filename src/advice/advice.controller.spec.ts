@@ -2,6 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AdviceController } from './advice.controller';
 import { AdviceService } from './advice.service';
 import { AuthGuard } from '../auth/auth.guard';
+import { CACHE_MANAGER } from '@nestjs/cache-manager';
 
 describe('AdviceController', () => {
   let controller: AdviceController;
@@ -28,6 +29,14 @@ describe('AdviceController', () => {
         {
           provide: AuthGuard,
           useValue: mockAuthGuard,
+        },
+        {
+          provide: CACHE_MANAGER,
+          useValue: {
+            get: jest.fn(),
+            set: jest.fn(),
+            del: jest.fn(),
+          },
         },
       ],
     })

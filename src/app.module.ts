@@ -9,6 +9,7 @@ import { APP_GUARD } from '@nestjs/core';
 import { User } from 'schemas/user.schema';
 import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
@@ -37,6 +38,10 @@ import { UsersModule } from './users/users.module';
     }),
     AuthModule,
     UsersModule,
+    CacheModule.register({
+      isGlobal: true,
+      ttl: 300000,
+    }),
   ],
   controllers: [AppController],
   providers: [
