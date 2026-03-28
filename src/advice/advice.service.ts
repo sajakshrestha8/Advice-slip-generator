@@ -21,11 +21,9 @@ export class AdviceService {
     }
   }
 
-  async findRandom(): Promise<Advice> {
+  async findAll(): Promise<Advice[]> {
     try {
-      const advices = await this.adviceRepo.find();
-      const randomIndex = Math.floor(Math.random() * advices.length);
-      return advices[randomIndex];
+      return await this.adviceRepo.find();
     } catch (error) {
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       throw new InternalServerErrorException('Failed to fetch advice', error);
