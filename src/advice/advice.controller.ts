@@ -7,7 +7,9 @@ import * as cacheManager_1 from 'cache-manager';
 import { adviceConstants } from './constants';
 import { Advice } from 'schemas/advice.schema';
 import { pickRandoms } from './advice.utils';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Advice')
 @Controller('/v1/advice')
 export class AdviceController {
   constructor(
@@ -21,6 +23,7 @@ export class AdviceController {
     return this.adviceService.create(createAdviceDto);
   }
 
+  @ApiBearerAuth()
   @UseGuards(AuthGuard)
   @Get()
   async findRandom() {
